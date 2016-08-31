@@ -59,7 +59,7 @@ if (wishlist.indexOf(productHandle) > -1) {
 
 To setup the custom wishlist page, create a new page called *wishlist* and set it's template to *page.wishlist* found in the **page.wishlist.liquid** file. Make sure the page handle is 'wishlist'. 
 
-If you want to change this make sure to update the function **loadWishlist** in **Wishlist.js**. 
+If you want to change the page handle make sure to update the function **loadWishlist** in **Wishlist.js**. 
 
 On the custom wishlist page, we will initially load every product in the shop and then run a scan to filter out any products that are not part of the wishlist. 
 
