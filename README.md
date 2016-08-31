@@ -44,7 +44,7 @@ On click, the wishlist-button element will have the class **is-active** added. T
 <div class="wishlist-btn is-active" data-product-handle="{{ product.handle }}">Add To Wishlist</div>
 ```
 
-### Mark Active Wishlist items
+### Mark Active Wishlist Items
 
 Any time a page is loaded, the **Wishlist.js** file will scan the page for any wishlist-button elements that have a product handle matching those in the the localStorage array and automatically add the **is-active** class so that the user can see which products are already in their wishlist. 
 
