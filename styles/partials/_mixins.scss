@@ -1,0 +1,68 @@
+// mq($value)
+//
+// Desktop-first media query
+//
+// $value - A number with unit or keyword string reflecting at what screen width to break on
+//
+// Styleguide Helpers.Mixins
+@mixin mq($value) {
+  @if(type-of($value) == number) {
+    @media only screen and (max-width: $value) { @content; }
+}
+@else if(type-of($value) == string) {
+    @if $value == "mobile" {
+       @media only screen and (max-width: $mobile) { @content; }
+   }
+   @else if $value == "mobile-large" {
+       @media only screen and (max-width: $mobile-large) { @content; }
+   }
+   @else if $value == "tablet" {
+       @media only screen and (max-width: $tablet) { @content; }
+   }
+   @else if $value == "tablet-large" {
+       @media only screen and (max-width: $tablet-large) { @content; }
+   }
+   @else if $value == "desktop" {
+       @media only screen and (max-width: $desktop) { @content; }
+   }
+   @else if $value == "desktop-large" {
+       @media only screen and (max-width: $desktop-large) { @content; }
+   }
+}
+}
+
+
+@mixin flex-width($value){
+  @if(type-of($value) == number) {
+    width: $value;
+    max-width: $value;
+    flex-basis: $value;
+  }
+  @else if(type-of($value) == string) {
+    @if $value == "full" {
+      width: $full;
+      max-width: $full;
+      flex-basis: $full;
+    }
+    @else if $value == "half" {
+      width: $half;
+      max-width: $half;
+      flex-basis: $half;
+    }
+    @else if $value == "third" {
+      width: $third;
+      max-width: $third;
+      flex-basis: $third;
+    }
+    @else if $value == "quarter" {
+      width: $quarter;
+      max-width: $quarter;
+      flex-basis: $quarter;
+    }
+    @else if $value == "fifth" {
+      width: $fifth;
+      max-width: $fifth;
+      flex-basis: $fifth;
+    }
+  }
+}

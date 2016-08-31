@@ -1,0 +1,23 @@
+<div class="full-width-container wishlist-container">
+  <!-- Hero Banner -->
+  <div class="wishlist-hero">
+    <h1 class="wishlist-hero--title">{{ page.title }}</h1>
+  </div>
+  <!-- Product Tile Grid -->
+  <div class="wishlist-grid flex">
+    {% for product in collections.all.products %}
+      {% include 'product-tile' %}
+    {% endfor %}
+    <div class="wishlist-grid--empty-list flex">
+      <div class="empty-list--info">
+        <h6 class="empty-list--text black">Looks like you haven't started a wishlist yet...</h6>
+        <a class="btn empty-list--btn" href="/collections/all">Start Shopping</a>
+      </div>
+    </div>
+  </div>
+  <!-- Loader -->
+  <div class="wishlist-loader">
+    <img class="wishlist-loader--image" src="{{ 'icn-wishlist.svg' | asset_url }}" alt="Wishlist loading">
+    <p class="wishlist-loader--text">Loading your customized wishlist...</p>
+  </div>
+</div>
