@@ -1,6 +1,5 @@
 ;(function (Wishlist, $) {
 
-  var $headerWishlistLink = $('.item--link.link-wishlist');
   var $wishlistButton = $('.wishlist-btn');
   var $wishlistTile = $('.wishlist-tile');
   var numProductTiles = $wishlistTile.length;
@@ -10,16 +9,10 @@
   }
 
   /*
-   * Update button and header icon to show current state
+   * Update button to show current state (gold for active)
    */   
   var animateWishlist = function (self) {
-    /* Turn icon gold for active */
     $(self).toggleClass('is-active');
-    /* Blink Header Wishlist icon */
-    $headerWishlistLink.addClass('is-active');
-    setTimeout(function () {
-      $headerWishlistLink.removeClass('is-active');
-    }, 400);
   };
 
   /*
@@ -82,13 +75,10 @@
       $('.wishlist-loader').fadeOut(2000, function () {
         $('.wishlist-grid').addClass('is_visible');
         $('.wishlist-hero').addClass('is_visible');
-        $('.wishlist-hero--title').addClass('animated fadeInUp');
         if (numProductTiles == 0) {
-          $('.wishlist-grid--empty-list').addClass('is_visible animated fadeInUp');
+          $('.wishlist-grid--empty-list').addClass('is_visible');
         } else {
           $('.wishlist-grid--empty-list').hide();
-          /* Force fade-in animation */
-          $('html, body').scrollTop(1).scrollTop(0);
         }
       });
     }
