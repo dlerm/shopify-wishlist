@@ -18,7 +18,7 @@ To begin using the Shopify Wishlist copy the following files into your project d
 * snippets/product-tile.liquid
 * snippets/wishlist-button.liquid
 
-You must initalize the **Wishlist.js** module at the bottom of your *theme.liquid* file for it to work. For help, see the example in the **layout/theme.liquid* file provided.
+You must initalize the **Wishlist.js** module at the bottom of your *theme.liquid* file for it to work. For help, see the example in the **layout/theme.liquid** file provided.
 
 ```
 <!-- Footer Scripts ================================ -->
