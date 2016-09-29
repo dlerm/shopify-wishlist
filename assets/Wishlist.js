@@ -70,7 +70,7 @@
    * If no wishlist items exist, show the empty wishlist notice
    */   
   var loadWishlist = function () {
-    if (window.location.href.indexOf('pages/wishlist')) {
+    if (window.location.href.indexOf('pages/wishlist') > -1) {
       displayOnlyWishlistItems();
       $('.wishlist-loader').fadeOut(2000, function () {
         $('.wishlist-grid').addClass('is_visible');
