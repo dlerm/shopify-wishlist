@@ -1,7 +1,7 @@
 ;(function (Wishlist, $) {
 
   var $wishlistButton = $('.wishlist-btn');
-  var $wishlistTile = $('.wishlist-tile');
+  var $wishlistTile = $('.wishlist-tile-container');
   var numProductTiles = $wishlistTile.length;
   var wishlist = localStorage.getItem('user_wishlist') || [];
   if (wishlist.length > 0) {
