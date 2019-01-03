@@ -5,9 +5,11 @@
   </div>
   <!-- Product Tile Grid -->
   <div class="wishlist-grid flex">
-    {% for product in collections.all.products %}
-      {% include 'product-tile' %}
-    {% endfor %}
+    {% paginate collections.all.products by 9999 %}
+      {% for product in collections.all.products %}
+        {% include 'product-tile' %}
+      {% endfor %}
+    {% endpaginate %}
     <div class="wishlist-grid--empty-list flex">
       <div class="empty-list--info">
         <h6 class="empty-list--text black">Looks like you haven't started a wishlist yet...</h6>
