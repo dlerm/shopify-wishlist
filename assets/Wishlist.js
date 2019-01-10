@@ -1,7 +1,8 @@
-;(function (Wishlist, $) {
+(function (Wishlist, $) {
 
   var $wishlistButton = $('.wishlist-btn');
   var $wishlistTile = $('.wishlist-tile-container');
+  var $wishlistItemCount = $('.wishlist-item-count');
   var numProductTiles = $wishlistTile.length;
   var wishlist = localStorage.getItem('user_wishlist') || [];
   if (wishlist.length > 0) {
@@ -84,6 +85,16 @@
     }
   };
 
+  /**
+   * Display number of items in the wishlist
+   * Must set the $wishlistItemCount variable
+   */
+  var updateWishlistItemCount = function () {
+    if (wishlist) {
+      $wishlistItemCount.text(wishlist.length);
+    }
+  };
+
   var bindUIActions = function () {
     $wishlistButton.click(function (e) {
       e.preventDefault();
@@ -96,6 +107,7 @@
     bindUIActions();
     activateItemsInWishlist();
     loadWishlist();
+    updateWishlistItemCount();
   };
 
 }(window.Wishlist = window.Wishlist || {}, jQuery, undefined));
