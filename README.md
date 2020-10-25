@@ -2,6 +2,8 @@
 
 A set of files used to implement a simple customer wishlist on a Shopify store.
 
+_Version: 2.0.0_ [Looking for Version 1.0.0?](https://github.com/dlerm/shopify-wishlist/tree/version/1.0.0)
+
 ## Installation
 
 To begin using **Shopify Wishlist**, you must copy some of the files in this repo into your Shopify theme code.
