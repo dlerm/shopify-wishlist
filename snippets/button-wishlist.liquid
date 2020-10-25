@@ -1,0 +1,26 @@
+{% comment %}
+  Shopify Wishlist
+  Usage:
+    - Markup: {%- render 'button-wislist', product: product -%}
+    - Place this snippet inside your product card snippet
+
+  Parameters:
+    - product: <Shopify product> (required)
+{% endcomment %}
+{%- if product.handle != blank -%}
+  <button type="button" aria-label="Add to wishlist" class="" button-wishlist data-product-handle="{{ product.handle }}">
+    <style scoped>
+      .icon {
+        fill: transparent;
+        stroke: #000000;
+        transition: fill 0.3s ease;
+      }
+
+      .active .icon {
+        fill: red;
+        stroke: #000000;
+      }
+    </style>
+    {%- render 'icon-heart' -%}
+  </button>
+{%- endif -%}

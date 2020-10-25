@@ -1,113 +1,74 @@
-(function (Wishlist, $) {
+var LOCAL_STORAGE_WISHLIST_KEY = 'shopify-wishlist';
+var LOCAL_STORAGE_DELIMITER = ',';
+var BUTTON_ACTIVE_CLASS = 'active';
 
-  var $wishlistButton = $('.wishlist-btn');
-  var $wishlistTile = $('.wishlist-tile-container');
-  var $wishlistItemCount = $('.wishlist-item-count');
-  var numProductTiles = $wishlistTile.length;
-  var wishlist = localStorage.getItem('user_wishlist') || [];
-  if (wishlist.length > 0) {
-    wishlist = JSON.parse(localStorage.getItem('user_wishlist'));
-  }
+var selectors = {
+  button: '[button-wishlist]',
+  grid: '[grid-wishlist]',
+};
 
-  /*
-   * Update button to show current state (gold for active)
-   */   
-  var animateWishlist = function (self) {
-    $(self).toggleClass('is-active');
-  };
+document.addEventListener('DOMContentLoaded', function () {
+  var buttons = document.querySelectorAll(selectors.button) || [];
+  if (buttons.length) setupButtons(buttons);
 
-  /*
-   * Add/Remove selected item to the user's wishlist array in localStorage
-   * Wishlist button class 'is-active' determines whether or not to add or remove
-   * If 'is-active', remove the item, otherwise add it
-   */   
-  var updateWishlist = function (self) {
-    var productHandle = $(self).attr('data-product-handle');
-    var isRemove = $(self).hasClass('is-active');
-    /* Remove */
-    if (isRemove) {
-      var removeIndex = wishlist.indexOf(productHandle);
-      wishlist.splice(removeIndex, 1);
-      localStorage.setItem('user_wishlist', JSON.stringify(wishlist));
-    }
-    /* Add */ 
-    else {
-      wishlist.push(productHandle);
-      localStorage.setItem('user_wishlist', JSON.stringify(wishlist));
-    }
-    console.log(JSON.stringify(wishlist));
-  };
+  var grid = document.querySelector(selectors.grid) || false;
+  if (grid) setupGrid(grid);
+});
 
-  /*
-   * Loop through wishlist buttons and activate any items that are already in user's wishlist
-   * Activate by adding class 'is-active'
-   * Run on initialization
-   */   
-  var activateItemsInWishlist = function () {
-    $wishlistButton.each(function () {
-      var productHandle = $(this).attr('data-product-handle');
-      if (wishlist.indexOf(productHandle) > -1) {
-        $(this).addClass('is-active');
-      }
+var setupGrid = function (grid) {
+  var wishlist = getWishlist();
+  var requests = wishlist.map(function (handle) {
+    var productTileTemplateUrl = '/products/' + handle + '?view=card';
+    return fetch(productTileTemplateUrl).then(function (res) {
+      return res.text();
     });
-  };
+  });
+  Promise.all(requests).then(function (responses) {
+    var wishlistProductCards = responses.join('');
+    grid.innerHTML = wishlistProductCards;
+    var buttons = grid.querySelectorAll(selectors.button) || [];
+    if (buttons.length) setupButtons(buttons);
+  });
+};
 
-  /*
-   * Loop through product titles and remove any that aren't a part of the wishlist
-   * Decrement numProductTiles on removal
-   */   
-  var displayOnlyWishlistItems = function () {
-    $wishlistTile.each(function () {
-      var productHandle = $(this).attr('data-product-handle');
-      if (wishlist.indexOf(productHandle) === -1) {
-        $(this).remove();
-        numProductTiles--;
-      }
+var setupButtons = function (buttons) {
+  buttons.forEach(function (button) {
+    var productHandle = button.dataset.productHandle || false;
+    if (!productHandle) return console.error('[Wishlist] Missing `data-product-handle` attribute. Failed to update the wishlist.');
+    if (wishlistContains(productHandle)) button.classList.add(BUTTON_ACTIVE_CLASS);
+    button.addEventListener('click', function () {
+      updateWishlist(productHandle);
+      button.classList.toggle(BUTTON_ACTIVE_CLASS);
     });
-  };
+  });
+};
 
-  /*
-   * Check if on the wishlist page and hide any items that aren't a part of the wishlist
-   * If no wishlist items exist, show the empty wishlist notice
-   */   
-  var loadWishlist = function () {
-    if (window.location.href.indexOf('pages/wishlist') > -1) {
-      displayOnlyWishlistItems();
-      $('.wishlist-loader').fadeOut(2000, function () {
-        $('.wishlist-grid').addClass('is_visible');
-        $('.wishlist-hero').addClass('is_visible');
-        if (numProductTiles == 0) {
-          $('.wishlist-grid--empty-list').addClass('is_visible');
-        } else {
-          $('.wishlist-grid--empty-list').hide();
-        }
-      });
-    }
-  };
+var getWishlist = function () {
+  var wishlist = localStorage.getItem(LOCAL_STORAGE_WISHLIST_KEY) || false;
+  if (wishlist) return wishlist.split(LOCAL_STORAGE_DELIMITER);
+  return [];
+};
 
-  /**
-   * Display number of items in the wishlist
-   * Must set the $wishlistItemCount variable
-   */
-  var updateWishlistItemCount = function () {
-    if (wishlist) {
-      $wishlistItemCount.text(wishlist.length);
-    }
-  };
+var setWishlist = function (array) {
+  var wishlist = array.join(LOCAL_STORAGE_DELIMITER);
+  if (array.length) localStorage.setItem(LOCAL_STORAGE_WISHLIST_KEY, wishlist);
+  else localStorage.removeItem(LOCAL_STORAGE_WISHLIST_KEY);
+  return wishlist;
+};
 
-  var bindUIActions = function () {
-    $wishlistButton.click(function (e) {
-      e.preventDefault();
-      updateWishlist(this);
-      animateWishlist(this);
-    });
-  };
+var updateWishlist = function (handle) {
+  var wishlist = getWishlist();
+  var indexInWishlist = wishlist.indexOf(handle);
+  if (indexInWishlist === -1) wishlist.push(handle);
+  else wishlist.splice(indexInWishlist, 1);
+  return setWishlist(wishlist);
+};
 
-  Wishlist.init = function () {
-    bindUIActions();
-    activateItemsInWishlist();
-    loadWishlist();
-    updateWishlistItemCount();
-  };
+var wishlistContains = function (handle) {
+  var wishlist = getWishlist();
+  return wishlist.indexOf(handle) !== -1;
+};
 
-}(window.Wishlist = window.Wishlist || {}, jQuery, undefined));
+var resetWishlist = function () {
+  return setWishlist([]);
+};
