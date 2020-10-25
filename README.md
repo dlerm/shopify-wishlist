@@ -14,7 +14,7 @@ _Note_: This setup assumes that you have a snippet for displaying a product card
 |Repo File|Shopify Theme Location|
 |:--:|:--:|
 |[`button-wishlist.liquid`](https://github.com/dlerm/shopify-wishlist/blob/master/snippets/button-wishlist.liquid)|`snippets/`|
-|[`icon-wishlist.liquid`](https://github.com/dlerm/shopify-wishlist/blob/master/snippets/icon-wishlist.liquid)| `snippets/`|
+|[`icon-heart.liquid`](https://github.com/dlerm/shopify-wishlist/blob/master/snippets/icon-heart.liquid)| `snippets/`|
 |[`page.wishlist.liquid`](https://github.com/dlerm/shopify-wishlist/blob/master/templates/page.wishlist.liquid)|`templates/`|
 |[`poduct.card.liquid`](https://github.com/dlerm/shopify-wishlist/blob/master/templates/product.card.liquid)|`templates/`|
 |[`Wishlist.js`](https://github.com/dlerm/shopify-wishlist/blob/master/assets/Wishlist.js)|`assets/`|
