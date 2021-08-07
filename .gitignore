@@ -10,4 +10,10 @@ Thumbs.db
 
 # Helper files #
 ######################
-*.svg
+_*
+
+# Build tools #
+######################
+node_modules/
+dist/
+.env
