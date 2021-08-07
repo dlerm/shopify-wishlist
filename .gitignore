@@ -10,13 +10,10 @@ Thumbs.db
 
 # Helper files #
 ######################
-*.svg
 _*
 
 # Build tools #
 ######################
 node_modules/
-tasks/
-gulpfile.js
-.env
 dist/
+.env

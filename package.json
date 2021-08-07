@@ -1,7 +1,26 @@
 {
+  "name": "shopify-wishlist",
+  "version": "2.0.1",
+  "author": "Daniel Lerman",
+  "description": "💙 A set of files used to implement a simple customer wishlist on a Shopify store",
+  "keywords": [
+    "shopify",
+    "theme",
+    "wishlist"
+  ],
+  "bugs": "https://github.com/dlerm/shopify-wishlist/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dlerm/shopify-wishlist"
+  },
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp build"
+  },
   "dependencies": {},
   "devDependencies": {
-    "@bva/gulp-shopify-upload": "^2.6.0",
+    "@shopify/themekit": "^1.1.9",
     "dotenv": "^9.0.0",
     "gulp": "^4.0.2",
     "gulp-changed": "^4.0.2",
