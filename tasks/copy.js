@@ -8,6 +8,7 @@ const liquidPaths = [
   '*snippets/**/*',
   '*sections/**/*',
   '*templates/**/*',
+  '*layout/**/*',
 ];
 
 function renameHiddenFiles (path) {
