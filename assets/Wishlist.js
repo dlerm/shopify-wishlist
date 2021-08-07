@@ -1,6 +1,7 @@
 var LOCAL_STORAGE_WISHLIST_KEY = 'shopify-wishlist';
 var LOCAL_STORAGE_DELIMITER = ',';
 var BUTTON_ACTIVE_CLASS = 'active';
+var GRID_LOADED_CLASS = 'loaded';
 
 var selectors = {
   button: '[button-wishlist]',
@@ -8,11 +9,21 @@ var selectors = {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-  var buttons = document.querySelectorAll(selectors.button) || [];
-  if (buttons.length) setupButtons(buttons);
+  initButtons();
+  initGrid();
+});
 
-  var grid = document.querySelector(selectors.grid) || false;
-  if (grid) setupGrid(grid);
+document.addEventListener('shopify-wishlist:updated', function (event) {
+  console.log('[Shopify Wishlist] Wishlist Updated ✅', event.detail.wishlist);
+  initGrid();
+});
+
+document.addEventListener('shopify-wishlist:init-product-grid', function (event) {
+  console.log('[Shopify Wishlist] Wishlist Product List Loaded ✅', event.detail.wishlist);
+});
+
+document.addEventListener('shopify-wishlist:init-buttons', function (event) {
+  console.log('[Shopify Wishlist] Wishlist Buttons Loaded ✅', event.detail.wishlist);
 });
 
 var setupGrid = function (grid) {
@@ -26,21 +37,41 @@ var setupGrid = function (grid) {
   Promise.all(requests).then(function (responses) {
     var wishlistProductCards = responses.join('');
     grid.innerHTML = wishlistProductCards;
-    var buttons = grid.querySelectorAll(selectors.button) || [];
-    if (buttons.length) setupButtons(buttons);
+    grid.classList.add(GRID_LOADED_CLASS);
+    initButtons();
+
+    var event = new CustomEvent('shopify-wishlist:init-product-grid', {
+      detail: { wishlist: wishlist }
+    });
+    document.dispatchEvent(event);
   });
 };
 
 var setupButtons = function (buttons) {
   buttons.forEach(function (button) {
     var productHandle = button.dataset.productHandle || false;
-    if (!productHandle) return console.error('[Wishlist] Missing `data-product-handle` attribute. Failed to update the wishlist.');
+    if (!productHandle) return console.error('[Shopify Wishlist] Missing `data-product-handle` attribute. Failed to update the wishlist.');
     if (wishlistContains(productHandle)) button.classList.add(BUTTON_ACTIVE_CLASS);
     button.addEventListener('click', function () {
       updateWishlist(productHandle);
       button.classList.toggle(BUTTON_ACTIVE_CLASS);
     });
   });
+};
+
+var initGrid = function () {
+  var grid = document.querySelector(selectors.grid) || false;
+  if (grid) setupGrid(grid);
+};
+
+var initButtons = function () {
+  var buttons = document.querySelectorAll(selectors.button) || [];
+  if (buttons.length) setupButtons(buttons);
+  else return;
+  var event = new CustomEvent('shopify-wishlist:init-buttons', {
+    detail: { wishlist: getWishlist() }
+  });
+  document.dispatchEvent(event);
 };
 
 var getWishlist = function () {
@@ -53,6 +84,12 @@ var setWishlist = function (array) {
   var wishlist = array.join(LOCAL_STORAGE_DELIMITER);
   if (array.length) localStorage.setItem(LOCAL_STORAGE_WISHLIST_KEY, wishlist);
   else localStorage.removeItem(LOCAL_STORAGE_WISHLIST_KEY);
+
+  var event = new CustomEvent('shopify-wishlist:updated', {
+    detail: { wishlist: array }
+  });
+  document.dispatchEvent(event);
+
   return wishlist;
 };
 
