@@ -1,6 +1,6 @@
 {
   "name": "shopify-wishlist",
-  "version": "2.0.1",
+  "version": "2.2.0",
   "author": "Daniel Lerman",
   "description": "💙 A set of files used to implement a simple customer wishlist on a Shopify store",
   "keywords": [

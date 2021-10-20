@@ -1,0 +1,12 @@
+{
+  "name": "Product card template",
+  "layout": false,
+  "sections": {
+    "main": {
+      "type": "product-card-template"
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

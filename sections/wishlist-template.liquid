@@ -3,7 +3,7 @@
   Usage:
     - Create a new page in the Shopify admin
       - Admin > Online store > Pages > Add page
-    - Set the new page's template to: 'page.wishlist' (this template)
+    - Set the new page's template to: 'page.wishlist'
     - Do NOT remove the `grid-wishlist` attribute
   
   Notes:
@@ -14,9 +14,13 @@
   - Place a loading element inside the `[grid-wishlist]` element and it will automatically be removed once the product cards have loaded
   - Add any liquid code before/after the grid element
 {% endcomment %}
-<section class="wishlist" id="wishlist">
-  <div class="grid" grid-wishlist>
-    {% comment %} Sample loading element {% endcomment %}
-    <p>Loading...</p>
-  </div>
-</section>
+<div class="wishlist__grid flex container" grid-wishlist>
+  {% comment %} Sample loading element {% endcomment %}
+  <p class="wishlist__loader full-width text-center">Loading...</p>
+</div>
+
+{% schema %}
+  {
+    "templates": ["page"]
+  }
+{% endschema %}

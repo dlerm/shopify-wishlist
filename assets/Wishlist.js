@@ -6,6 +6,7 @@ var GRID_LOADED_CLASS = 'loaded';
 var selectors = {
   button: '[button-wishlist]',
   grid: '[grid-wishlist]',
+  productCard: '.product-card',
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -30,8 +31,14 @@ var setupGrid = function (grid) {
   var wishlist = getWishlist();
   var requests = wishlist.map(function (handle) {
     var productTileTemplateUrl = '/products/' + handle + '?view=card';
-    return fetch(productTileTemplateUrl).then(function (res) {
-      return res.text();
+    return fetch(productTileTemplateUrl)
+    .then(function (res) { return res.text() })
+    .then(function (res) {
+      var text = res;
+      var parser = new DOMParser();
+      var htmlDocument = parser.parseFromString(text, "text/html");
+      var productCard = htmlDocument.documentElement.querySelector(selectors.productCard);
+      return productCard.outerHTML;
     });
   });
   Promise.all(requests).then(function (responses) {
