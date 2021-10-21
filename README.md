@@ -2,7 +2,7 @@
 
 A set of files used to implement a simple customer wishlist on a Shopify store.
 
-_Version: 2.2.0_ - Compatible with Online Store 2.0
+_Version: 2.3.0_ - Compatible with Online Store 2.0
 
 Previous Versions:
 - [v2.1.0 (Online Store 1.0)](https://github.com/dlerm/shopify-wishlist/tree/version/2.1.0)
