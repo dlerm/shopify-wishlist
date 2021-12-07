@@ -23,7 +23,7 @@ _Note_: This setup assumes that you have a snippet for displaying a product card
 |[`wishlist-template.liquid`](https://github.com/dlerm/shopify-wishlist/blob/master/sections/wishlist-template.liquid)| `sections/`|
 |[`product-card-template.liquid`](https://github.com/dlerm/shopify-wishlist/blob/master/sections/product-card-template.liquid)| `sections/`|
 |[`page.wishlist.json`](https://github.com/dlerm/shopify-wishlist/blob/master/templates/page.wishlist.json)|`templates/`|
-|[`poduct.card.json`](https://github.com/dlerm/shopify-wishlist/blob/master/templates/product.card.json)|`templates/`|
+|[`product.card.json`](https://github.com/dlerm/shopify-wishlist/blob/master/templates/product.card.json)|`templates/`|
 |[`Wishlist.js`](https://github.com/dlerm/shopify-wishlist/blob/master/assets/Wishlist.js)|`assets/`|
 
 1. Place the `button-wishlist.liquid` snippet inside your existing product card snippet, or on the `product.liquid` template
