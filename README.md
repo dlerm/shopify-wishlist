@@ -31,11 +31,21 @@ _Note_: This setup assumes that you have a snippet for displaying a product card
    - This will allow customer's to add/remove items to/from their wishlist
 2. Replace the snippet in the `product-card-template.liquid` section with your existing product card snippet
    - Same snippet from step 1
-3. Create a new page in the Shopify admin:
+   - Your product card snippet may use a different product variable name then the example, double check it :+1:
+3. Add your product card element classname to the `selectors` object in `Wishlist.js`
+   - Example: If your product card classname is `.product-item`, the `selectors` variable would look like this:
+      ```
+      const selectors = {
+        button: '[button-wishlist]',
+        grid: '[grid-wishlist]',
+        productCard: '.product-item', // your classname here
+      };
+      ```
+4. Create a new page in the Shopify admin:
    - Admin > Online Store > Pages > Add Page
    - Set the new page's `template` to `page.wishlist`
    - This page will display a customer's saved wishlist items
-4. Place the script in `theme.liquid` before the closing `</head>` tag
+5. Place the script in `theme.liquid` before the closing `</head>` tag
    - `<script src="{{ 'Wishlist.js' | asset_url }}" defer="defer"></script>`
 
 That's it! When viewing your Shopify store, you should see the wishlist buttons inside your product cards (likely on collections pages) or on the product template. A click on the wishlist button will add/remove the item from the customer's wishlist and trigger active styling on the button. After adding wishlist items, you can view your wishlist by navigating to the page created in step 3.
