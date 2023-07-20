@@ -31,7 +31,7 @@ _Note_: This setup assumes that you have a snippet for displaying a product card
    - This will allow customer's to add/remove items to/from their wishlist
 2. Replace the snippet in the `product-card-template.liquid` section with your existing product card snippet
    - Same snippet from step 1
-   - Your product card snippet may use a different product variable name then the example, double check it :+1:
+   - Your product card snippet may use a different product variable name, double check it :+1:
 3. Add your product card element classname to the `selectors` object in `Wishlist.js`
    - Example: If your product card classname is `.product-item`, the `selectors` variable would look like this:
       ```
